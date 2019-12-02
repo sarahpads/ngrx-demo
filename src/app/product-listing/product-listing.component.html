@@ -7,7 +7,7 @@
     <p class="product-listing__info-description">Offers expire on Monday 2nd December at midnight.</p>
   </div>
 
-  <ng-container *ngFor="let product of products">
+  <ng-container *ngFor="let product of (products | async)">
     <app-product-tile class="product-listing__product" [product]="product"></app-product-tile>
   </ng-container>
 </div>

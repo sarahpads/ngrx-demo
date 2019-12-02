@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ProductService } from '../shared/product.service';
+import { Store } from '@ngrx/store';
+import { State } from '../core/store';
+import { getAllProducts } from '../core/store/products/products.selectors';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-listing',
@@ -9,14 +12,17 @@ import { ProductService } from '../shared/product.service';
   styleUrls: ['./product-listing.component.scss']
 })
 export class ProductListingComponent implements OnInit {
-  public products: App.Product[];
+  public products: Observable<App.Product[]>;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private store: Store<State>
+  ) { }
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((products) => {
-      this.products = products;
-    });
+   this.products = this.store.select(getAllProducts).pipe(tap((value) => console.log(value)));
+    // this.productService.getProducts().subscribe((products) => {
+      // this.products = products;
+    // });
   }
 
 }
