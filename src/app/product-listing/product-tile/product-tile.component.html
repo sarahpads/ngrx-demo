@@ -1,1 +1,10 @@
-<a [routerLink]="['/', product.id]">{{ product.title }}</a>
+<div class="product-tile">
+  <a class="product-tile__link" [routerLink]="['/', product.id]">
+    <img class="product-tile__image" src="/assets/images/bottle.png"/>
+
+    <div class="product-tile__info">
+      <span class="product-tile__title">{{ product.title }}</span>
+      <span class="product-tile__price">{{ product.price | currency }}</span>
+    </div>
+  </a>
+</div>

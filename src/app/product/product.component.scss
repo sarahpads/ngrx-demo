@@ -1,0 +1,8 @@
+@import "_settings.colors";
+
+$content-margin: 3rem;
+
+.product {
+  background-color: $background-content;
+  min-height: calc(100vh - (#{$content-margin} * 2));
+}

@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+@import "_reset";
+@import "_settings.colors";
+@import "_tools.fonts";
+
+html,
+body {
+  min-height: 100%;
+  min-width: 768px;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  @include serif-font();
+  background-color: $background-default;
+  color: $text-default;
+  font-size: 1.6rem;
+  line-height: 1.5em;
+  width: 100%;
+}
+
+a {
+  color: $text-default;
+  transition: opacity .25s;
+}

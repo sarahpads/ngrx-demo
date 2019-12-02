@@ -1,0 +1,22 @@
+@import "_tools.fonts";
+@import "_settings.colors";
+
+.header {
+  display: flex;
+  height: 6.5rem;
+
+  &__link {
+    @include sans-serif-font(600, 11);
+    color: $white;
+    letter-spacing: 2px;
+    text-decoration: none;
+
+    &:hover {
+      opacity: .7;
+    }
+
+    &.-cart {
+      margin-left: auto;
+    }
+  }
+}

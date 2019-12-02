@@ -1,5 +1,13 @@
-<p>product-listing works!</p>
+<div class="product-listing">
+  <div class="product-listing__info">
+    <h2 class="product-listing__info-header">SEEDLIP SAVINGS</h2>
 
-<ng-container *ngFor="let product of products">
-  <app-product-tile [product]="product"></app-product-tile>
-</ng-container>
+    <p class="product-listing__info-description">Get any 70cl Seedlip bottle for £22 or enjoy Æcorn Aperitifs at £17.</p>
+    <p class="product-listing__info-description">Alternatively, shop for Christmas with 10% off all Seedlip gift boxes.</p>
+    <p class="product-listing__info-description">Offers expire on Monday 2nd December at midnight.</p>
+  </div>
+
+  <ng-container *ngFor="let product of products">
+    <app-product-tile class="product-listing__product" [product]="product"></app-product-tile>
+  </ng-container>
+</div>

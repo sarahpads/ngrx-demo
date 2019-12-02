@@ -9,4 +9,4 @@ We have an awesome ecommerce app that allows users to view our product listing a
 
 This poses a couple of design concerns:
 1. Our service is responsible for managing state, updating state, selecting state, and managing any side effects.
-2. The onus is on our components for selecting this state from multiple services and composing it.
+2. The onus is on our components for selecting this state from multiple services and composing it and making sure data changes are propogated correctly.

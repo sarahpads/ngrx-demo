@@ -1,0 +1,32 @@
+@import "_settings.colors";
+@import "_tools.fonts";
+
+.product-listing {
+  display: grid;
+  grid-gap: 1px;
+  grid-template-columns: repeat(3, 1fr);
+
+  &__info {
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+
+    &-header,
+    &-description {
+      margin-bottom: 2rem;
+    }
+
+    &-header {
+      @include sans-serif-font(400, 18);
+      letter-spacing: 0.5rem;
+    }
+
+    &-description {
+      @include serif-font(400, 12);
+      line-height: 2rem;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@import "_settings.colors";
+@import "_tools.fonts";
+
+.product-tile {
+  text-align: center;
+
+  &__link {
+    align-items: center;
+    background-color: $background-content;
+    display: flex;
+    flex-direction: column;
+    min-height: 35rem;
+    padding: 3rem;
+    text-decoration: none;
+    transition: background-color .25s ease;
+
+    &:hover {
+      background-color: #e0e5df;
+
+      .product-tile__image {
+        transform: scale(1);
+      }
+    }
+  }
+
+  &__image {
+    height: 26rem;
+    transform: scale(0.975);
+    transition: transform .25s ease;
+  }
+
+  &__info {
+    margin-top: auto;
+  }
+
+  &__title {
+    @include sans-serif-font(700, 11);
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  &__price {
+    @include serif-font(400, 20);
+  }
+}
