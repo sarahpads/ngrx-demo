@@ -32,7 +32,9 @@
             ],
             "scripts": [],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/assets/scss"]
+              "includePaths": [
+                "src/assets/scss"
+              ]
             }
           },
           "configurations": {
@@ -127,6 +129,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ngrx-ecommerce"
+    }
+  },
+  "defaultProject": "ngrx-ecommerce",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
