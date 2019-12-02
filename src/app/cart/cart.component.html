@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+  <div [formArrayName]="'items'">
+    <ng-container *ngFor="let item of items.controls; let i = index">
+      <app-cart-tile [formGroupName]="i" [form]="item" (onRemove)="removeItem(i)"></app-cart-tile>
+    </ng-container>
+  </div>
+
+  Total: {{ totalCost }}
+</form>
