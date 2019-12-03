@@ -1,9 +1,20 @@
-<form [formGroup]="form">
-  <div [formArrayName]="'items'">
-    <ng-container *ngFor="let item of items.controls; let i = index">
-      <app-cart-tile [formGroupName]="i" [form]="item" (onRemove)="removeItem(i)"></app-cart-tile>
-    </ng-container>
+<div class="cart">
+  <div class="cart__header">
+    <span class="cart__header-label">Your Order:</span>
+    <span class="cart__header-value">{{ items.controls.length }} {{ items.controls.length === 1 ? 'item' : 'items' }}</span>
   </div>
 
-  Total: {{ totalCost }}
-</form>
+  <form class="cart__form" [formGroup]="form">
+    <div [formArrayName]="'items'">
+      <ng-container *ngFor="let item of items.controls; let i = index">
+        <app-cart-tile class="cart__form-row" [formGroupName]="i" [form]="item" (onRemove)="removeItem(i)"></app-cart-tile>
+      </ng-container>
+    </div>
+  </form>
+
+  <div class="cart__footer">
+    <span class="cart__footer-label">Your total:</span>
+    <app-price class="cart__footer-price" [price]="totalCost"></app-price>
+    <button app-button="primary">Checkout</button>
+  </div>
+</div>

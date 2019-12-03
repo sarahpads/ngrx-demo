@@ -1,4 +1,11 @@
 <div class="product">
-  <button (click)="addToCart()">Add to cart</button>
-  {{ product.title }} {{ product.price }}
+  <div class="product__info">
+    <h2 class="product__info-title">{{ product.title }}</h2>
+    <p class="product__info-description">{{ product.description }}</p>
+
+    <app-price class="product__info-price" [price]="product.price"></app-price>
+    <button app-button (click)="addToCart()">Add to cart</button>
+  </div>
+
+  <img class="product__image" src="assets/images/bottle.png"/>
 </div>
