@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 
 import { State } from '../core/store';
 import { getCartState } from './cart.selectors';
+import { removeItem } from '../core/store/cart/cart.actions';
 
 @Component({
   selector: 'app-cart',
@@ -59,8 +60,9 @@ export class CartComponent implements OnInit, OnDestroy {
     this.onDestroy.next(null);
   }
 
-  public removeItem(index) {
+  public removeItem(productId: number, index: number) {
     this.items.removeAt(index);
+    this.store.dispatch(removeItem({ productId }));
   }
 
   private calculateTotalCost() {

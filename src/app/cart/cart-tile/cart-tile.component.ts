@@ -15,6 +15,7 @@ export class CartTileComponent implements OnInit {
   ngOnInit() {}
 
   remove() {
-    this.onRemove.emit();
+    const productId = this.form.get('id').value;
+    this.onRemove.emit(productId);
   }
 }
