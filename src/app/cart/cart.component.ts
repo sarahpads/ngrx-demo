@@ -55,8 +55,10 @@ export class CartComponent implements OnInit, OnDestroy {
     this.onDestroy.next(null);
   }
 
-  public removeItem(index) {
+  public removeItem(productId: number, index: number) {
+    console.log(index, productId)
     this.items.removeAt(index);
+    this.cartService.remove(productId);
   }
 
   private calculateTotalCost() {

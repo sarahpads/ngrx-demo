@@ -12,7 +12,7 @@ import { ProductService } from '../shared/product.service';
 export class ProductListingComponent implements OnInit, OnDestroy {
   public products: App.Product[];
 
-  private onDestroy: Subject<any> = new Subject<any>;
+  private onDestroy: Subject<any> = new Subject<any>();
 
   constructor(private productService: ProductService) { }
 
