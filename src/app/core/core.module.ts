@@ -5,6 +5,8 @@ import { StoreModule } from '@ngrx/store';
 
 import { HeaderComponent } from './header/header.component';
 import { reducers, metaReducers } from './store';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductsEffects } from './store/products/products.effects';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -17,7 +19,9 @@ import { reducers, metaReducers } from './store';
         strictStateImmutability: true,
         strictActionImmutability: true
       }
-    })
+    }),
+    EffectsModule.forRoot([]),
+    EffectsModule.forFeature([ProductsEffects])
   ],
   exports: [HeaderComponent]
 })

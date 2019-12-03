@@ -34,3 +34,8 @@ This poses a couple of design concerns:
 3. Lets hook up the store to our product and cart components
 4. Lets take a look at what's still using our services
 - CartService isn't being used at all anymore, we can remove it!
+
+## Step 4: Effects
+The only piece of our code still using a service is the `AppComponent`, which uses it to fetch data. Often, your app will want to perform a series of "Side-Effects" based on any given event. In our example, when the "App Init" event is fired, we want to get product data. We could put this responsibility on our `AppComponent`, but lets go all in here and get that into our store.
+1. `ng add @ngrx/effects --module core/core.module.ts --minimal`: this installs the `effects` library as a dependency without the additional boilerplate
+2. From your `core/store/products` directory, run `ng g ef products --module ../../core/module.ts`
