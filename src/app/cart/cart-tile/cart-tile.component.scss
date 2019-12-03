@@ -1,0 +1,30 @@
+@import "_tools.fonts";
+
+:host {
+  display: block;
+}
+
+.cart-tile {
+  align-items: center;
+  display: flex;
+  height: 13rem;
+
+  &__image {
+    margin: 0 4rem;
+    max-height: 13rem;
+  }
+
+  &__title {
+    @include sans-serif-font(400, 11);
+    letter-spacing: 2px;
+  }
+
+  &__button {
+    margin-left: auto;
+  }
+
+  &__price {
+    margin-left: 3rem;
+    width: 13rem;
+  }
+}

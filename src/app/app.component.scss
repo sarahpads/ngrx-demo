@@ -1,10 +1,17 @@
+@import "_settings";
 @import "_settings.colors";
 
-$content-margin: 3rem;
+.app {
+  &__container {
+    // background-color: $background-content;
+    margin: 3rem;
+    min-height: calc(100vh - (#{$content-margin} * 2 + #{$header-height}));
+    // padding: 6.5rem;
+    position: relative;
+  }
 
-.app__container {
-  // background-color: $background-content;
-  margin: 3rem;
-  min-height: calc(100vh - (#{$content-margin} * 2));
-  // padding: 6.5rem;
+  &__video {
+    position: fixed;
+    top: 0;
+  }
 }

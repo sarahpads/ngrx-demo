@@ -1,8 +1,39 @@
+@import "_settings";
 @import "_settings.colors";
+@import "_tools.fonts";
 
 $content-margin: 3rem;
 
 .product {
+  align-items: center;
   background-color: $background-content;
-  min-height: calc(100vh - (#{$content-margin} * 2));
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - (#{$content-margin} * 2 + #{$header-height}));
+
+  &__info {
+    background-color: $white;
+    padding: 8rem 4rem 6rem;
+    text-align: center;
+    width: 32rem;
+
+    &-title {
+      @include sans-serif-font(400, 24);
+      margin-bottom: 5rem;
+    }
+
+    &-description {
+      @include serif-font(400, 12);
+    }
+
+    &-price {
+      margin: 3rem 0 2rem;
+    }
+  }
+
+  &__image {
+    height: 60rem;
+    margin-left: -6rem;
+  }
 }

@@ -1,2 +1,7 @@
-<input type="number" [formControl]="form.get('quantity')"/>
-{{ form.get('name').value }}
+<div class="cart-tile">
+  <app-number-input [formControl]="form.get('quantity')"></app-number-input>
+  <img class="cart-tile__image" src="assets/images/bottle.png"/>
+  <span class="cart-tile__title">{{ form.get('name').value }}</span>
+  <button class="cart-tile__button" app-button (click)="remove()">Remove</button>
+  <app-price class="cart-tile__price" [price]="form.get('price').value"></app-price>
+</div>
