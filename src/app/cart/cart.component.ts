@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { combineLatest } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { combineLatest, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { CartService } from '../shared/cart.service';
 import { ProductService } from '../shared/product.service';
-import { FormControl, FormGroup, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public totalCost: number;
+
+  private onDestroy: Subject<any> = new Subject();
 
   constructor(
     private cartService: CartService,
@@ -30,7 +33,9 @@ export class CartComponent implements OnInit {
     combineLatest(
       this.cartService.getCart(),
       this.productService.getProducts()
-    ).subscribe(([cart, products]) => {
+    )
+    .pipe(takeUntil(this.onDestroy))
+    .subscribe(([cart, products]) => {
       for (const item of cart) {
         const product = products.find((product) => product.id === item.productId);
 
@@ -44,6 +49,10 @@ export class CartComponent implements OnInit {
 
       this.calculateTotalCost();
     });
+  }
+
+  ngOnDestroy() {
+    this.onDestroy.next(null);
   }
 
   public removeItem(index) {

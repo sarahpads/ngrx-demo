@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { CartService } from 'src/app/shared/cart.service';
 
@@ -7,15 +9,23 @@ import { CartService } from 'src/app/shared/cart.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   public cartSize: number;
+
+  private onDestroy: Subject<any> = new Subject();
 
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.cartService.getCart().subscribe((cart) => {
-      this.cartSize = cart.length;
-    });
+    this.cartService.getCart()
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe((cart) => {
+        this.cartSize = cart.length;
+      });
+  }
+
+  ngOnDestroy() {
+    this.onDestroy.next(null);
   }
 
 }

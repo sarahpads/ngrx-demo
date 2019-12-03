@@ -19,7 +19,7 @@ export class PriceComponent implements OnInit {
   }
 
   ngOnChanges(changes) {
-    if (changes.price && changes.price.currentValue) {
+    if (changes.price && typeof changes.price.currentValue !== 'undefined') {
       const [ dollars, cents ] = this.currencyPipe.transform(this.price, 'CAD', '').split('.');
 
       this.dollars = dollars;
