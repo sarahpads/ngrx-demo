@@ -36,7 +36,14 @@ export class CartComponent implements OnInit, OnDestroy {
     )
     .pipe(takeUntil(this.onDestroy))
     .subscribe(([cart, products]) => {
+      // make sure new items are added
       for (const item of cart) {
+        const isInForm = this.items.controls.some((control) => control.get('id').value === item.productId);
+
+        if (isInForm) {
+          continue;
+        }
+
         const product = products.find((product) => product.id === item.productId);
 
         this.items.push(new FormGroup({
@@ -45,6 +52,16 @@ export class CartComponent implements OnInit, OnDestroy {
           price: new FormControl(product.price),
           id: new FormControl(product.id)
         }));
+      }
+
+      // make sure old items are removed
+      for (let i = 0, len = this.items.controls.length; i < len; i++) {
+        const productId = this.items.controls[i].get('id').value;
+        const isInCart = cart.some((item) => item.productId === productId);
+
+        if (!isInCart) {
+          this.items.removeAt(i);
+        }
       }
 
       this.calculateTotalCost();
@@ -56,7 +73,6 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   public removeItem(productId: number, index: number) {
-    console.log(index, productId)
     this.items.removeAt(index);
     this.cartService.remove(productId);
   }
