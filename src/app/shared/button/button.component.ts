@@ -6,7 +6,8 @@ import { Component, OnInit, Input, Renderer2, ElementRef } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit {
-  @Input('app-button') public type: string = 'secondary';
+  // tslint:disable-next-line:no-input-rename
+  @Input('app-button') public type = 'secondary';
 
   constructor(
     private element: ElementRef,
@@ -18,7 +19,7 @@ export class ButtonComponent implements OnInit {
       this.type = 'secondary';
     }
 
-    this.renderer.addClass(this.element.nativeElement, `-${this.type}`)
+    this.renderer.addClass(this.element.nativeElement, `-${this.type}`);
   }
 
 }

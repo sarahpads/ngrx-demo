@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
@@ -6,10 +6,10 @@ import { CurrencyPipe } from '@angular/common';
   templateUrl: './price.component.html',
   styleUrls: ['./price.component.scss']
 })
-export class PriceComponent implements OnInit {
+export class PriceComponent implements OnInit, OnChanges {
   @Input() public price: number;
-  public dollars: string = '0';
-  public cents: string = '00';
+  public dollars = '0';
+  public cents = '00';
 
   constructor(
     private currencyPipe: CurrencyPipe
