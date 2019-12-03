@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { AppState, getAppState } from './app.selectors';
 import { State } from './core/store';
-import { ProductService } from './shared/product.service';
+import { loadProducts } from './core/store/products/products.actions';
 
 @Component({
   selector: 'app-root',
@@ -15,12 +15,11 @@ export class AppComponent implements OnInit {
   public state: Observable<AppState>;
 
   constructor(
-    private productService: ProductService,
     private store: Store<State>
   ) { }
 
   ngOnInit() {
     this.state = this.store.select(getAppState);
-    this.productService.fetchProducts();
+    this.store.dispatch(loadProducts());
   }
 }
