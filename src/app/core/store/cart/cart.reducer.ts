@@ -20,10 +20,10 @@ const cartReducer = createReducer(
     const item = items.find((item) => item.productId === productId);
 
     if (!item) {
-      return state;
+      items.push({ productId, quantity: 1 });
+    } else {
+      item.quantity++;
     }
-
-    item.quantity++;
 
     return { ...state, items };
   }),

@@ -1,24 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private readonly products$: BehaviorSubject<App.Product[]> = new BehaviorSubject([]);
-
   constructor() { }
 
-  getProducts(): Observable<App.Product[]> {
-    return this.products$.asObservable();
-  }
-
-  private set products(products) {
-    this.products$.next(products);
-  }
-
   public fetchProducts() {
-    this.products$.next([
+    return of([
       {
         id: 1,
         description: 'Non-alcoholic, zero calories, sugar &amp; sweetener free with no artificial flavours. Water, Natural Botanical Distillates &amp; Extracts (Allspice berries, Cardamom, Grapefruit peel, Lemon peel, Oak bark, Cascarilla bark). Preservative: Potassium sorbate. Acid: Citric acid.',
@@ -60,9 +50,5 @@ export class ProductService {
         title: 'Product 5'
       }
     ]);
-  }
-
-  public getProductById(productId: number): App.Product | undefined {
-    return this.products$.getValue().find((product) => product.id === productId);
   }
 }

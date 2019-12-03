@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
-import { CartService } from '../shared/cart.service';
 import { Store } from '@ngrx/store';
 import { State } from '../core/store';
 import { getProductById } from '../core/store/products/products.selectors';
+import { addItem } from '../core/store/cart/cart.actions';
 
 @Component({
   selector: 'app-product',
@@ -16,7 +16,6 @@ export class ProductComponent implements OnInit {
   public product: App.Product;
 
   constructor(
-    private cartService: CartService,
     private route: ActivatedRoute,
     private router: Router,
     private store: Store<State>
@@ -38,6 +37,6 @@ export class ProductComponent implements OnInit {
   }
 
   public addToCart() {
-    this.cartService.add(this.product.id);
+    this.store.dispatch(addItem({ productId: this.product.id }));
   }
 }

@@ -32,3 +32,5 @@ This poses a couple of design concerns:
 1. From within our `core/store/cart` directory, run `ng g a cart`. To start, lets define actions for adding and removing items from the cart.
 2. Run `npm install lodash.clonedeep` so that we can ensure we don't mutate state
 3. Lets hook up the store to our product and cart components
+4. Lets take a look at what's still using our services
+- CartService isn't being used at all anymore, we can remove it!
