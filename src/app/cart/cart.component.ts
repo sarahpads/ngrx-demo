@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 
 import { State } from '../core/store';
 import { getCartState } from './cart.selectors';
+import { CartService } from '../shared/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -19,6 +20,7 @@ export class CartComponent implements OnInit, OnDestroy {
   private onDestroy: Subject<any> = new Subject();
 
   constructor(
+    private cartService: CartService,
     private store: Store<State>
   ) { }
 
@@ -36,6 +38,12 @@ export class CartComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy))
       .subscribe(({ cart, products }) => {
         for (const item of cart) {
+          const isInForm = this.items.controls.some((control) => control.get('id').value === item.productId);
+
+          if (isInForm) {
+            continue;
+          }
+
           const product = products.find((product) => product.id === item.productId);
 
           this.items.push(new FormGroup({
@@ -44,6 +52,16 @@ export class CartComponent implements OnInit, OnDestroy {
             price: new FormControl(product.price),
             id: new FormControl(product.id)
           }));
+        }
+
+        // make sure old items are removed
+        for (let i = 0, len = this.items.controls.length; i < len; i++) {
+          const productId = this.items.controls[i].get('id').value;
+          const isInCart = cart.some((item) => item.productId === productId);
+
+          if (!isInCart) {
+            this.items.removeAt(i);
+          }
         }
 
         this.calculateTotalCost();
