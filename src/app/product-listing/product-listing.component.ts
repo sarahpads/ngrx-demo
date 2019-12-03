@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import { Store } from '@ngrx/store';
+
 import { State } from '../core/store';
 import { getAllProducts } from '../core/store/products/products.selectors';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-listing',

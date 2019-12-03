@@ -4,7 +4,7 @@
 
     <div class="product-tile__info">
       <span class="product-tile__title">{{ product.title }}</span>
-      <span class="product-tile__price">{{ product.price | currency }}</span>
+      <app-price class="product-tile__price" [price]="product.price"></app-price>
     </div>
   </a>
 </div>

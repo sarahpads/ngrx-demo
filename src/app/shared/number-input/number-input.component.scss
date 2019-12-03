@@ -1,0 +1,40 @@
+@import "_settings.colors";
+@import "_tools.fonts";
+
+.number-input {
+  background-color: $background-content;
+  display: flex;
+
+  &__button,
+  &__input {
+    background: transparent;
+    border: none;
+    outline: none;
+    height: 4rem;
+    width: 4rem;
+  }
+
+  &__button {
+    color: #09402c4d;
+    cursor: pointer;
+    font-size: 2rem;
+    transition: color .25s;
+
+    &:hover {
+      color: $text-default;
+    }
+  }
+
+  &__input {
+    @include sans-serif-font(13);
+    text-align: center;
+    -moz-appearance:textfield;
+
+    /* Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
