@@ -19,10 +19,7 @@ export class ProductListingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-   this.products = this.store.select(getAllProducts).pipe(tap((value) => console.log(value)));
-    // this.productService.getProducts().subscribe((products) => {
-      // this.products = products;
-    // });
+   this.products = this.store.select(getAllProducts);
   }
 
 }

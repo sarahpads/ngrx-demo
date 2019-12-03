@@ -26,3 +26,4 @@ This poses a couple of design concerns:
 - getProductById
 - getCartItems
 2. We'll need to update our smart components to retrieve these values from our store instead of services.
+3. Our CartComponent is currently composing its internal state from a combination of selectors - we can offload this!

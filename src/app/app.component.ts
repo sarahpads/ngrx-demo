@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import { AppState, getAppState } from './app.selectors';
+import { State } from './core/store';
 import { ProductService } from './shared/product.service';
 
 @Component({
@@ -6,11 +11,16 @@ import { ProductService } from './shared/product.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  public state: Observable<AppState>;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private store: Store<State>
+  ) { }
 
   ngOnInit() {
+    this.state = this.store.select(getAppState);
     this.productService.fetchProducts();
   }
 }

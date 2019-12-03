@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
-import { ProductService } from '../shared/product.service';
 import { CartService } from '../shared/cart.service';
+import { Store } from '@ngrx/store';
+import { State } from '../core/store';
+import { getProductById } from '../core/store/products/products.selectors';
 
 @Component({
   selector: 'app-product',
@@ -17,13 +19,14 @@ export class ProductComponent implements OnInit {
     private cartService: CartService,
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductService
+    private store: Store<State>
     ) { }
 
   ngOnInit() {
     this.route.params.pipe(
-      map((params: any) => {
-        return this.productService.getProductById(parseInt(params.productId, 10));
+      switchMap((params: any) => {
+        const productId = parseInt(params.productId, 10);
+        return this.store.select(getProductById(productId));
       })
     ).subscribe((product) => {
       if (!product) {

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { combineLatest } from 'rxjs';
 
-import { CartService } from '../shared/cart.service';
-import { ProductService } from '../shared/product.service';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { State } from '../core/store';
+import { getCartState } from './cart.selectors';
 
 @Component({
   selector: 'app-cart',
@@ -15,8 +16,7 @@ export class CartComponent implements OnInit {
   public totalCost: number;
 
   constructor(
-    private cartService: CartService,
-    private productService: ProductService
+    private store: Store<State>
   ) { }
 
   get items() {
@@ -27,23 +27,21 @@ export class CartComponent implements OnInit {
     this.form = new FormGroup({ items: new FormArray([]) });
     this.items.valueChanges.subscribe(this.calculateTotalCost.bind(this));
 
-    combineLatest(
-      this.cartService.getCart(),
-      this.productService.getProducts()
-    ).subscribe(([cart, products]) => {
-      for (const item of cart) {
-        const product = products.find((product) => product.id === item.productId);
+    this.store.select(getCartState)
+      .subscribe(({ cart, products }) => {
+        for (const item of cart) {
+          const product = products.find((product) => product.id === item.productId);
 
-        this.items.push(new FormGroup({
-          name: new FormControl(product.title),
-          quantity: new FormControl(item.quantity),
-          price: new FormControl(product.price),
-          id: new FormControl(product.id)
-        }));
-      }
+          this.items.push(new FormGroup({
+            name: new FormControl(product.title),
+            quantity: new FormControl(item.quantity),
+            price: new FormControl(product.price),
+            id: new FormControl(product.id)
+          }));
+        }
 
-      this.calculateTotalCost();
-    });
+        this.calculateTotalCost();
+      });
   }
 
   public removeItem(index) {
