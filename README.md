@@ -39,3 +39,12 @@ This poses a couple of design concerns:
 The only piece of our code still using a service is the `AppComponent`, which uses it to fetch data. Often, your app will want to perform a series of "Side-Effects" based on any given event. In our example, when the "App Init" event is fired, we want to get product data. We could put this responsibility on our `AppComponent`, but lets go all in here and get that into our store.
 1. `ng add @ngrx/effects --module core/core.module.ts --minimal`: this installs the `effects` library as a dependency without the additional boilerplate
 2. From your `core/store/products` directory, run `ng g ef products --module ../../core/module.ts`
+
+## Step 5: Router Events
+There's still one thing I don't like about our setup: `ProductComponent` needs to do determine what product to load based on the current route.
+1. `ng add @ngrx/router-store --module core/core.module.ts`: this library stores the current state of the router inside the store and dispatches actions for all routing events. This means that we can easily compose selectors using the router's state
+2. The default serializer isn't very helpful, so we'll replace it with something that gives us { url, params, queryParams }. Copied from https://ngrx.io/guide/router-store/configuration#custom-router-state-serializer
+3. So lets give it a shot. First, we'll need to hook up the store so that the products.currentProductId state is updated on router navigation. This is a side-effect of routing navigation, so we'll need to write an effect for it.
+- action/reducer to update currentProductId
+- effect
+- update product component

@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { loadProductsSuccess } from './products.actions';
+import { loadProductsSuccess, loadProduct } from './products.actions';
 
 
 export const productsFeatureKey = 'products';
@@ -18,6 +18,11 @@ const productsReducer = createReducer(
   initialState,
   on(loadProductsSuccess, (state, { products }) => {
     return { ...state, allProducts: products };
+  }),
+
+  on(loadProduct, (state, { productId }) => {
+    console.log('here')
+    return { ...state, currentProductId: productId };
   })
 );
 

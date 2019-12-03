@@ -1,4 +1,4 @@
-<div class="product">
-  <button (click)="addToCart()">Add to cart</button>
+<div class="product" *ngIf="product | async; let product">
+  <button (click)="addToCart(product.id)">Add to cart</button>
   {{ product.title }} {{ product.price }}
 </div>
