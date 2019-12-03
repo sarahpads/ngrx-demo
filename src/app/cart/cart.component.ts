@@ -46,7 +46,6 @@ export class CartComponent implements OnInit, OnDestroy {
           const product = products.find((product) => product.id === item.productId);
 
           if (!product) {
-          debugger;
             return;
           }
 

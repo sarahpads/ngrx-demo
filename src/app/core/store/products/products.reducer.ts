@@ -21,7 +21,6 @@ const productsReducer = createReducer(
   }),
 
   on(loadProduct, (state, { productId }) => {
-    console.log('here')
     return { ...state, currentProductId: productId };
   })
 );

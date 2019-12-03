@@ -11,7 +11,6 @@ export const getCartState = createSelector(
   getCartItems,
   getAllProducts,
   (cart: App.Cart, products: App.Product[]): CartState => {
-    debugger;
     return { cart, products };
   }
 );
