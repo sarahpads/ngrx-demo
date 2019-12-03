@@ -33,6 +33,6 @@ export class CartService {
   }
 
   public remove(productId: number): void {
-    this.cart = this.cart.filter((item: App.CartItem) => item.productId !== productId);
+    this.cart = this.cart$.getValue().filter((item: App.CartItem) => item.productId !== productId);
   }
 }

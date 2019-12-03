@@ -7,7 +7,7 @@
   <form class="cart__form" [formGroup]="form">
     <div [formArrayName]="'items'">
       <ng-container *ngFor="let item of items.controls; let i = index">
-        <app-cart-tile class="cart__form-row" [formGroupName]="i" [form]="item" (onRemove)="removeItem(i)"></app-cart-tile>
+        <app-cart-tile class="cart__form-row" [formGroupName]="i" [form]="item" (onRemove)="removeItem($event, i)"></app-cart-tile>
       </ng-container>
     </div>
   </form>
