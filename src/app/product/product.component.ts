@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 import { State } from '../core/store';
@@ -12,8 +13,10 @@ import { addItem } from '../core/store/cart/cart.actions';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnDestroy {
   public product: App.Product;
+
+  private onDestroy: Subject<any> = new Subject();
 
   constructor(
     private route: ActivatedRoute,
@@ -23,6 +26,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.pipe(
+      takeUntil(this.onDestroy),
       switchMap((params: any) => {
         const productId = parseInt(params.productId, 10);
         return this.store.select(getProductById(productId));
@@ -34,6 +38,10 @@ export class ProductComponent implements OnInit {
 
       this.product = product;
     });
+  }
+
+  ngOnDestroy() {
+    this.onDestroy.next(null);
   }
 
   public addToCart() {
