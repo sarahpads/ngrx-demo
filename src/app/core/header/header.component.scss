@@ -1,9 +1,10 @@
 @import "_tools.fonts";
+@import "_settings";
 @import "_settings.colors";
 
 .header {
   display: flex;
-  height: 6.5rem;
+  height: $header-height;
 
   &__link {
     @include sans-serif-font(600, 11);

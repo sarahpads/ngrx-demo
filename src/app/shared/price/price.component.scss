@@ -1,0 +1,14 @@
+@import "_tools.fonts";
+
+:host {
+  @include serif-font();
+  display: flex;
+  justify-content: center;
+}
+
+.price {
+  &__symbol,
+  &__cents {
+    font-size: 0.5em;
+  }
+}

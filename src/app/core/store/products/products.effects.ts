@@ -25,7 +25,7 @@ export class ProductsEffects {
   loadProduct = createEffect(
     () => this.actions$.pipe(
       ofType(ROUTER_NAVIGATED),
-      map((action: any) => action.payload.routerState.params.productId),
+      map((action: any) => action.payload.routerState.params && action.payload.routerState.params.productId),
       filter((productId) => !!productId),
       map((productId: string) => {
         return loadProduct({ productId: parseInt(productId, 10) });

@@ -1,0 +1,34 @@
+@import "_settings.colors";
+@import "_tools.fonts";
+
+:host {
+  @include sans-serif-font(700, 11);
+  border: none;
+  cursor: pointer;
+  letter-spacing: 2.6px;
+  min-width: 18rem;
+  outline: none;
+  padding: 2rem;
+  transition: .25s background-color ease;
+
+  &.-primary {
+    background-color: $text-default;
+    color: $white;
+
+    &:hover {
+      background-color: #063222;
+    }
+  }
+
+  &.-secondary {
+    background-color: $background-content;
+
+    &:hover {
+      background-color: #d9d9d3;
+    }
+  }
+
+  &.-tertiary {
+    background-color: $white;
+  }
+}

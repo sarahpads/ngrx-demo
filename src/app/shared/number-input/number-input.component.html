@@ -1,0 +1,12 @@
+<div class="number-input">
+  <button class="number-input__button -decrement" (click)="decrement()">-</button>
+
+  <input
+    type="number"
+    class="number-input__input"
+    min="0"
+    [(ngModel)]="value"
+    (ngModelChange)="onInputChange($event)"/>
+
+  <button class="number-input__button -increment" (click)="increment()">+</button>
+</div>
