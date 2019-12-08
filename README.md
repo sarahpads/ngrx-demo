@@ -55,51 +55,92 @@ Lets say we would like to ensure that users cannot order more bottles than are i
     };
 
     ```
-## Step 3: Define our Cart Actions and Reducers
-1. Lets use schematics to create our first action:
+## Step 2: Select our state
+1. There aren't any schematics available for selectors so we'll need to manually create files like a bunch of chumps:
     ```
-    cd core/store/cart
-    ng g a cart
+    cd core/store/products
+    touch products.selectors.ts
     ```
-    This will generate a file for us to keep all our cart actions in.
-2. We'll construct a couple of actions; one for adding an item and another for removing in item:
+2. Now we need to define a `FeatureSelector` that our other selectors will build upon. The `FeatureSelector` is responsible for selecting the overall piece of state:
     ```
-    // core/store/cart/cart.actions.ts
-    export const addItem = createAction(
-      '[Cart] Add Item',
-      props<{productId: number}>()
+    // core/store/products/products.selectors.ts
+
+    const getProductsState = createFeatureSelector('products');
+    ```
+    Now we can use our `getProductsState` selector to select even smaller pieces of state:
+    ```
+    // core/store/products/products.selectors.ts
+
+      export const getCurrentProductId = createSelector(
+      getProductsState,
+      (state: State): number => {
+        return state.currentProductId;
+      }
     );
 
-    export const removeItem = createAction(
-      '[Cart] Remove Item',
-      props<{productId: number}>()
+    export const getCurrentProduct = createSelector(
+      getAllProducts,
+      getCurrentProductId,
+      (allProducts, currentProductId): App.Product | undefined => {
+        return allProducts.find((product) => product.id === currentProductId);
+      }
     );
     ```
-2. Now we need to fill in our reducer functions, which define what happens to our cart state when these actions are dispatched. I'm using lodash's `clonedeep` function to ensure I don't mutate state, but you can use something more robust like [ImmutableJS](https://immutable-js.github.io/immutable-js/) as well.
+3. Let's put 'em to work. Inside our `ProductListingComponent` we will replace the call to our `ProductService` and instead select from our store:
     ```
-    // core/store/cart/cart.reducer.ts
+    // product-listing/product-listing.component.ts
 
-    const cartReducer = createReducer(
-      initialState,
-      on(addItem, (state, { productId }) => {
-        const items = cloneDeep(state.items);
-        const item = items.find((item) => item.productId === productId);
+    import { Store } from '@ngrx/store';
+    import { State } from '../core/store';
 
-        if (!item) {
-          items.push({ productId, quantity: 1 });
-        } else {
-          item.quantity++;
-        }
+    ...
 
-        return { ...state, items };
-      }),
+    constructor(
+      private store: Store<State>
+    ) { }
 
-      on(removeItem, (state, { productId }) => {
-        const items = state.items.filter((item) => item.productId !== productId);
+    ngOnInit() {
+      this.products = this.store.select(getAllProducts);
+    }
 
-        return { ...state, items };
-      })
+    ```
+4. That was pretty easy. Lets take a look at our `CartComponent` and see what we can do there. This is a bit more complicated since the `CartComponent` depends on multiple pieces of state, but there are ways to offload this. First, we'll create a selector for our `CartComponent` itself:
+    ```
+    cd src/app/cart/
+    touch cart.selectors.ts
+    ```
+    We can use this file to define and construct the state for our component itself:
+    ```
+    // src/cart/cart.selectors.ts
+    import { getCartItems } from '../core/store/cart/cart.selectors';
+    import { getAllProducts } from '../core/store/products/products.selectors';
+
+    interface CartState {
+      cart: App.Cart;
+      products: App.Product[];
+    }
+
+    export const getCartState = createSelector(
+      getCartItems,
+      getAllProducts,
+      (cart: App.Cart, products: App.Product[]): CartState => {
+        return { cart, products };
+      }
     );
+
+    // src/cart/cart.component.ts
+    import { Store } from '@ngrx/store';
+    import { State } from '../core/store';
+    import { getCartState } from './cart.selectors';
+
+    ...
+
+    constructor(
+      private store: Store<State>
+    ) { }
+
+    ngOnInit() {
+      this.store.select(getCartState)
+    }
     ```
-3. Lets hook up the store to our product and cart components
-4. Now that our plumbing is in, lets re-evaluate the need for our services. Our `ProductService` is still being use to retrieve data, but our `CartService` is no longer being used :tada:.
+    And voila! Our `CartComponent` is no longer concerned about where its data is coming from or how it's being constructed. All it cares about is receiving and reacting to changes.
