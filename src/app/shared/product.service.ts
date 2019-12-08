@@ -11,7 +11,7 @@ export class ProductService {
     return of([
       {
         id: 1,
-        description: 'Non-alcoholic, zero calories, sugar &amp; sweetener free with no artificial flavours. Water, Natural Botanical Distillates &amp; Extracts (Allspice berries, Cardamom, Grapefruit peel, Lemon peel, Oak bark, Cascarilla bark). Preservative: Potassium sorbate. Acid: Citric acid.',
+        description: 'A bottle of Cabernet Sauvignon capsule with corkscrews and characteristics. Glass of Chardonnay stem on vineyards from the valley quality. Sip quality estate fruit made with grapes grown unique vine. Farmed locations planted sustainabilty winemakers grow harvest before aged to ensure each varietal.',
         inventory: 10,
         price: 10,
         tags: ['wine'],
@@ -19,7 +19,7 @@ export class ProductService {
       },
       {
         id: 2,
-        description: 'Non-alcoholic, zero calories, sugar &amp; sweetener free with no artificial flavours. Water, Natural Botanical Distillates &amp; Extracts (Allspice berries, Cardamom, Grapefruit peel, Lemon peel, Oak bark, Cascarilla bark). Preservative: Potassium sorbate. Acid: Citric acid.',
+        description: 'A bottle of Cabernet Sauvignon capsule with corkscrews and characteristics. Glass of Chardonnay stem on vineyards from the valley quality. Sip quality estate fruit made with grapes grown unique vine. Farmed locations planted sustainabilty winemakers grow harvest before aged to ensure each varietal.',
         inventory: 10,
         price: 20,
         tags: ['wine'],
@@ -27,7 +27,7 @@ export class ProductService {
       },
       {
         id: 3,
-        description: 'Non-alcoholic, zero calories, sugar &amp; sweetener free with no artificial flavours. Water, Natural Botanical Distillates &amp; Extracts (Allspice berries, Cardamom, Grapefruit peel, Lemon peel, Oak bark, Cascarilla bark). Preservative: Potassium sorbate. Acid: Citric acid.',
+        description: 'A bottle of Cabernet Sauvignon capsule with corkscrews and characteristics. Glass of Chardonnay stem on vineyards from the valley quality. Sip quality estate fruit made with grapes grown unique vine. Farmed locations planted sustainabilty winemakers grow harvest before aged to ensure each varietal.',
         inventory: 10,
         price: 30,
         tags: ['wine'],
@@ -35,7 +35,7 @@ export class ProductService {
       },
       {
         id: 4,
-        description: 'Non-alcoholic, zero calories, sugar &amp; sweetener free with no artificial flavours. Water, Natural Botanical Distillates &amp; Extracts (Allspice berries, Cardamom, Grapefruit peel, Lemon peel, Oak bark, Cascarilla bark). Preservative: Potassium sorbate. Acid: Citric acid.',
+        description: 'A bottle of Cabernet Sauvignon capsule with corkscrews and characteristics. Glass of Chardonnay stem on vineyards from the valley quality. Sip quality estate fruit made with grapes grown unique vine. Farmed locations planted sustainabilty winemakers grow harvest before aged to ensure each varietal.',
         inventory: 10,
         price: 40,
         tags: ['wine'],
@@ -43,7 +43,7 @@ export class ProductService {
       },
       {
         id: 5,
-        description: 'Non-alcoholic, zero calories, sugar &amp; sweetener free with no artificial flavours. Water, Natural Botanical Distillates &amp; Extracts (Allspice berries, Cardamom, Grapefruit peel, Lemon peel, Oak bark, Cascarilla bark). Preservative: Potassium sorbate. Acid: Citric acid.',
+        description: 'A bottle of Cabernet Sauvignon capsule with corkscrews and characteristics. Glass of Chardonnay stem on vineyards from the valley quality. Sip quality estate fruit made with grapes grown unique vine. Farmed locations planted sustainabilty winemakers grow harvest before aged to ensure each varietal.',
         inventory: 10,
         price: 50,
         tags: ['wine'],
