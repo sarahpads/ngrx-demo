@@ -22,6 +22,7 @@
     &-header {
       @include sans-serif-font(400, 18);
       letter-spacing: 0.5rem;
+      text-transform: uppercase;
     }
 
     &-description {
