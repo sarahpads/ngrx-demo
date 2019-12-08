@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, filter, mapTo } from 'rxjs/operators';
+import { map, switchMap, filter } from 'rxjs/operators';
 
 import { loadProducts, loadProductsSuccess, loadProduct } from './products.actions';
 import { ProductService } from 'src/app/shared/product.service';
