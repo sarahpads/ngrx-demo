@@ -144,3 +144,52 @@ Lets say we would like to ensure that users cannot order more bottles than are i
     }
     ```
     And voila! Our `CartComponent` is no longer concerned about where its data is coming from or how it's being constructed. All it cares about is receiving and reacting to changes.
+
+## Step 3: Define our Cart Actions and Reducers
+1. Lets use schematics to create our first action:
+    ```
+    cd core/store/cart
+    ng g a cart
+    ```
+    This will generate a file for us to keep all our cart actions in.
+2. We'll construct a couple of actions; one for adding an item and another for removing in item:
+    ```
+    // core/store/cart/cart.actions.ts
+    export const addItem = createAction(
+      '[Cart] Add Item',
+      props<{productId: number}>()
+    );
+
+    export const removeItem = createAction(
+      '[Cart] Remove Item',
+      props<{productId: number}>()
+    );
+    ```
+2. Now we need to fill in our reducer functions, which define what happens to our cart state when these actions are dispatched. I'm using lodash's `clonedeep` function to ensure I don't mutate state, but you can use something more robust like [ImmutableJS](https://immutable-js.github.io/immutable-js/) as well.
+    ```
+    // core/store/cart/cart.reducer.ts
+
+    const cartReducer = createReducer(
+      initialState,
+      on(addItem, (state, { productId }) => {
+        const items = cloneDeep(state.items);
+        const item = items.find((item) => item.productId === productId);
+
+        if (!item) {
+          items.push({ productId, quantity: 1 });
+        } else {
+          item.quantity++;
+        }
+
+        return { ...state, items };
+      }),
+
+      on(removeItem, (state, { productId }) => {
+        const items = state.items.filter((item) => item.productId !== productId);
+
+        return { ...state, items };
+      })
+    );
+    ```
+3. Lets hook up the store to our product and cart components
+4. Now that our plumbing is in, lets re-evaluate the need for our services. Our `ProductService` is still being use to retrieve data, but our `CartService` is no longer being used :tada:.
