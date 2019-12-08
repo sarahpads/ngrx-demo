@@ -36,6 +36,7 @@ export class CartComponent implements OnInit, OnDestroy {
     )
     .pipe(takeUntil(this.onDestroy))
     .subscribe(([cart, products]) => {
+      // make sure new items are added
       for (const item of cart) {
         const isInForm = this.items.controls.some((control) => control.get('id').value === item.productId);
 

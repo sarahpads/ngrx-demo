@@ -1,19 +1,16 @@
-# NgRx Ecommerce
+# @ngrx Demo
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 
-We will go through the process of converting an existing angular application's state management system into an NgRx store.
+I shamefully lifted the design concepts from [Seedlip Drink](https://seedlipdrinks.com/uk/).
+
+This is a stepped repo that illustrates the benefits and process of implementing an @ngrx store within an existing Angular application.  Each step is a separate branch that builds on the previous step. The instructions listed below outline the process taken in each step.
 
 ## Start
-We have an awesome ecommerce app that allows users to view our product listing and add items to their cart. To achieve this, we are storing our state across multiple services and exposing methods for retriving and updating state.
+We have an awesome ecommerce app that allows users to view our wine listing and add bottles to their cart. To achieve this, we are storing our state across multiple services that expose methods for retriving and updating state.
 
 This poses a couple of design concerns:
-1. Our service is responsible for managing state, updating state, selecting state, and managing any side effects.
-2. The onus is on our components for selecting this state from multiple services and composing it and making sure data changes are propogated correctly.
+1. Our service is responsible for managing, updating, and selecting state.
+2. The responsibility lies on our components to collect and compose the state from multiple services.
 
-## Step 1: Install NgRx
-1. `ng add @ngrx/store --path core/core.module.ts --statePath core/store`: this installs the `@ngrx/store` dependency and bootstraps an NgRx store for us in our `CoreModule`.
-2. `ng add @ngrx/schematics`: this allows us to generate different NgRx pieces through the angular cli. Since these schematics extend the Angular ones, it's safe to set these as the default collection.
-3. Lets put those schematics to work and generate a piece of state for our products. First, create a `products` directory in the newly generated `store` directory. From within the `products` directory, run `ng g r products`. For now, lets not create success/failure actions, and lets use the `create function`.
-4. Define our state
-5. Include our reducer functions inside our `store/index.ts` file.
+Lets say we would like to ensure that users cannot order more bottles than are in stock. We're now in a situation where the state of our cart impacts the state of our inventory.  As the user adds more to their cart, we'll need to decrement the inventory; when we decrement the inventory, we need to make sure the user can't add more than the number available.  With our state split across multiple services, the onus is now on our components to know what state modifications need to happen after any given action.
